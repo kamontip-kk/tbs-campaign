@@ -1,0 +1,538 @@
+@import '~antd/dist/antd.less';
+
+@green: #17b3a3;
+@grey: #526069;
+@blue: #3e8ef7;
+@corner: 15px;
+
+// .show-mixin (@property) {
+//     @{property}: ~"var(--graph-show)";
+// }
+
+// .graph(@var){
+//     .show() when (@var = notfinish){
+//         visibility: hidden;
+//         animation: increase 1s @i*1s;
+//     }
+//     .show() when (@var = finish){
+//         visibility: visible
+//     }
+//     .show();
+// }
+
+@keyframes increase{
+    0% {
+        height:0;
+        // transform: scaleY(0);
+        border-top:0 solid transparent;
+        border-bottom:0 solid transparent;
+        visibility: visible;
+    }
+    100%{
+        visibility: visible;
+    }
+}
+@keyframes showTitle{
+    0% {
+        visibility: visible;
+    }
+    100%{
+        visibility: visible;
+    }
+}
+
+.color(@number) when (@number = 1){
+    background-color: @grey;
+}
+.color(@number) when (@number = 2){
+    background-color: @green;
+}
+.color(@number) when (@number = 3){
+    background-color: #0bb2d4;
+}
+.color(@number) when (@number = 4){
+    background-color: @blue;
+}
+.bordercolor(@number) when (@number = 1){
+    border-left: 30px solid darken(@grey,10%);
+}
+.bordercolor(@number) when (@number = 2){
+    border-left: 30px solid darken(@green,10%);
+}
+.bordercolor(@number) when (@number = 3){
+    border-left: 30px solid darken(#0bb2d4,10%);
+}
+.generate-charts(4);
+.generate-charts(@n, @i: 1) when (@i =< @n) {
+    .label@{i}{
+        visibility: hidden;
+        animation: showTitle 1s @i*0.5s forwards;
+    }
+    .cube@{i} {
+        // .show-mixin(visibility);
+        visibility: hidden;
+        .color(@i);
+        
+        // .graph(notfinish);
+
+        animation: increase 1s @i*0.5s forwards;
+    }
+    .side@{i}{
+        // .show-mixin(visibility);
+        .bordercolor(@i);
+
+        visibility: hidden;
+        // .graph(notfinish);
+
+        animation: increase 1s @i*0.5s forwards;
+
+    }
+    .generate-charts(@n, (@i + 1));
+}
+
+.outline{
+    border: 2.2px solid #b3b3b36c;
+}
+.shadow{
+    box-shadow: 0px 0px 20px 3px lighten(@grey,50%);
+}
+.flexbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.subtitle{
+    font-weight: unset;
+    font-size: 24px;
+}
+.title{
+    font-weight: unset;
+    font-size: 36px;
+    color: white;
+}
+h1, h2, h3, h4, h5, h6{
+    margin: 0;
+}
+select , input{
+    background-color: white;
+    padding: 10px 100px 10px 20px;
+    margin-right: 10px;
+
+    font-size: 24px;
+    color: lighten(@grey,40%);
+    &::placeholder{
+        color: lighten(@grey,40%);
+    }
+    font-family: 'Prompt', sans-serif;
+    border-radius: 12px;
+    border: 2px solid lighten(@grey,50%);
+}
+.unit{
+    color: darken(@grey,5%);
+    font-weight: 500;
+    background-color: lighten(@grey,55%);
+}
+.coin{
+    color: #ffc400;
+    font-weight: 500;
+    background-color: lighten(@grey,55%);
+}
+
+.Header{
+    position: fixed;
+    z-index: 1;
+    background-color: white;
+
+    .topbar{
+        width: 2114px;
+        display: inline-flex;
+        align-items: center;
+        display: flex;
+        align-items: stretch;
+
+        .logo{
+            font-size: 45px;
+            color: @blue;
+            padding: 12px 940px 12px 30px;
+            .outline;
+        }
+        .details{
+            display: grid;
+            grid-template-areas: "credit remain"
+            "detail coin";
+            row-gap: 8px;
+            column-gap: 90px;
+
+            padding: 12px 50px;
+            .outline;
+
+            .remain{
+                font-size: 24px;
+                color: darken(@grey,5%);
+            }
+            a{
+                font-size: 20px;
+                color: @blue;
+                text-decoration:underline;
+            }
+            .value{
+                background-color: lighten(@grey,55%);
+                color: darken(@grey,15%);
+                width: 200px;
+                border-radius: @corner;
+                height: fit-content;
+                padding: 0px 10px;
+                font-size: 22px;
+                text-align: end;
+            }
+        }
+
+        .user{
+            font-size: 24px;
+            padding: 12px 104px 12px 50px;
+            display: inline-flex;
+            align-items: center;
+            .outline;
+        }
+
+    }
+    
+    .sidebar{
+        background-color: @grey;
+    }
+}
+
+.Footer{
+    background-color: #e4eaec;
+    height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 55px;
+    font-size: 18px;
+    color: @grey;
+}
+
+.Report{
+    background-color: @blue;
+    border-radius: @corner;
+
+    margin-bottom: 50px ;
+    padding: 20px 20px 20px 50px;
+
+    color: white;
+    
+    .flexbar;
+
+    span{
+        display: flex;
+        align-items: center;
+        font-size: 24px;
+
+        .button{
+            background-color: white;
+            color: @blue;
+            font-size: 26px;
+            font-weight:bold;
+
+            border-radius: 12px;
+            padding: 13px 40px;
+            margin-left: 30px;
+        }
+    }
+}
+
+.Result{
+    margin-bottom: 50px ;
+    border-bottom-right-radius: @corner;
+
+    .shadow;
+
+    h4{
+        .subtitle;
+    }
+    
+    .bar{
+        background-color: @green;
+        border-top-left-radius: @corner;
+        border-top-right-radius: @corner;
+        padding: 30px 50px;
+    
+        color: white;
+        
+        .flexbar;
+
+        span{
+            font-size: 24px;
+        }
+    }
+    .content{
+        display: flex;
+        .graph{
+            background-color: white;
+            padding: 50px 120px 30px 60px;
+    
+            display: flex;
+            text-align: center;
+            align-items: center;
+            color: darken(@grey,5%);
+
+            height: 600px;
+            .outline;
+            .chart{
+                .label{
+                    position: relative;
+                    left: -10px;
+                    font-size: 28px;
+                    color: darken(@grey,5%);
+                }
+                .box{
+                    display: flex;
+                    .cube{
+                        width: 260px;
+                        color: white;
+                        font-size: 32px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                }
+            }
+        }
+        .credit{
+            background-color: @grey;
+        
+            padding: 70px 70px;
+            border-bottom-left-radius: @corner;
+            color: white;
+        
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+
+            h4{
+                font-size: 26px;
+                color: white;
+            }
+
+            .creditnumber{
+                color: @green;
+                font-size: 70px;
+                margin-top: 40px;
+                display: inline-flex;
+                align-items: center;
+                .coin{
+                    font-size: 25px;
+                    border-radius: 50px;
+                    padding: 0 10px;
+                    margin-left: 15px;
+                }
+                .small{
+                    font-size: 25px;
+                    color: lighten(@grey,40%);
+                    margin-left: 15px;
+                    margin-top: 40px;
+                }
+            }
+        }
+        img{
+            border-bottom-right-radius: @corner;
+        }
+    }
+    
+}
+
+.Number{
+    background-color: white;
+    border-radius: @corner;
+    padding: 70px 50px 100px 50px;
+
+    .outline;
+    .shadow;
+
+    .bar{
+        .flexbar;
+        margin-bottom: 25px;
+        .title{
+            color: black;
+        }
+
+        input:focus{
+            outline: none
+        }
+    }
+    .select{
+        .flexbar;
+        margin-bottom: 30px;
+
+        select:focus{
+            outline: none;
+        }
+
+        button{
+            background-color: @blue;
+            border: none;
+
+            font-size: 22px;
+            color: white;
+
+            padding: 14px 35px;
+            margin-right: 40px;
+            border-radius: 14px;
+        }
+
+        .action {
+            span{
+                font-size: 24px;
+                color: lighten(@grey,20%);
+            }
+        }
+
+        .status {
+            span{
+                font-size: 24px;
+                color: @grey;
+                margin-left: 10px;
+            }
+            select{
+                margin-left: 20px;
+                padding-right: 45px;
+            }
+        }
+    }
+    .table{
+        text-align: center;
+        margin-bottom: 380px;
+
+        table{
+            width: 100%;
+
+            tr{
+                width: 100%;
+            }
+
+            .ant-checkbox-input{
+                // transform: scale(2);
+                padding-left: 20px;
+            }
+
+            .ant-checkbox-inner{
+                width: 32px;
+                height: 32px;
+                border-radius: 8px;
+                // transform: scale(2);
+
+                &::after{
+                    width: 8px;
+                    height: 18px;
+                    top: 40%;
+                    left: 25%;
+                }
+            }
+            
+            thead{
+                background-color: @grey;
+                color: white;
+                font-size: 24px;
+                
+                th{
+                    padding: 20px 0;
+                    font-weight: 500;
+
+                    &:first-child{
+                        border-top-left-radius: @corner;
+                    }
+                    &:last-child{
+                        border-top-right-radius: @corner;
+                    }
+                }
+            }
+
+            tbody{
+                text-align: center;
+                color: @grey;
+
+                td{
+                    text-align: center;
+                    font-size: 25px;
+                    padding: 30px 10px;
+                    border-bottom: 2.5px solid lighten(@grey,60%);
+                    
+                    .receive{
+                        text-transform: uppercase;
+                        font-size: 18px;
+                        color: @blue;
+                        background-color: #e2f6fe;
+                        width: fit-content;
+                        padding: 5px 30px;
+                        border-radius: 30px;
+                        margin: 0 auto;
+                    }
+                    .click{
+                        text-transform: uppercase;
+                        font-size: 18px;
+                        color: @green;
+                        background-color: #c6f3df;
+                        width: fit-content;
+                        padding: 5px 30px;
+                        border-radius: 30px;
+                        margin: 0 auto;
+                    }
+                    .time{
+                        font-weight: 300;
+                    }
+                    .time::before{
+                        content: ' | ';
+                    }
+                    .coin{
+                        font-size: 20px;
+                        border-radius: 20px;
+                        padding: 0 8px;
+                    }
+                }
+            }
+        }
+
+    }
+
+    .pagechange{
+        display: flex;
+        justify-content:flex-end;
+        align-items: center;
+
+        .ant-pagination{
+            font-size: 22px;
+            color: @grey;
+
+            .ant-pagination-item-link{
+                width: 50px;
+                height: 50px;
+                border-radius: 7px;
+                position: relative;
+                top: -28%;
+            }
+            .anticon-right, .anticon-left{
+                font-size: 20px;
+                position: relative;
+                top:5%;
+            }
+
+            .ant-pagination-item{
+                width: 50px;
+                height: 50px;
+                border-radius: 7px;
+                a{
+                    position: relative;
+                    top:20%;
+                }
+            }
+            .ant-select-selector{
+                font-size: 22px;
+                height: 50px;
+                border-radius: 7px;
+                padding: 8px 20px;
+            }
+
+        }
+    }
+}
